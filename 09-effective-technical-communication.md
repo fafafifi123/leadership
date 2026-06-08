@@ -1,12 +1,21 @@
 # Pillar 09 — Effective Technical Communication
 ## Mastering BLUF for Outages, Delays, and Architectural Pivots
 
-**Great Leader Anchor:** Andy Grove (Intel)
-**Hogan Filter:** Your caution default is to front-load technical context before delivering the headline — explaining the system architecture, the edge cases considered, and the risk analysis before telling the stakeholder what actually happened or what you need. This pattern reads as defensive, not authoritative, and causes your audience to lose confidence before you reach the point.
+**Layer:** Business | **Great Leader Anchor:** Andy Grove (Intel) | **Related:** [Pillar 05](./05-managing-up-influence-negotiation.md) · [Pillar 10](./10-executive-presence-selling-the-team.md)
+
+**Hogan Filter — Your Caution Trap:** You front-load technical context before delivering the headline — explaining system architecture, edge cases, and risk analysis before telling the stakeholder what actually happened or what you need. This reads as defensive, not authoritative, and causes your audience to lose confidence before you reach the point.
+
+**Anti-Caution Directive:** Business impact in sentence 1, always. Communicate before you are certain. An "investigating" message at minute 3 is worth more than a precise post-mortem at minute 45.
 
 ---
 
-## The Core Framework: BLUF (Bottom Line Up Front)
+## In 60 Seconds
+
+Grove's principle: **"Noise in the communication channel is not the receiver's problem — it is the sender's problem."** In equities technology, noise is technical jargon before the headline, passive voice that obscures ownership, probability hedging that delays the key message, and root cause explanation before business impact. Your caution produces all four. Strip them.
+
+---
+
+## The Core Framework: BLUF
 
 ```
 B — Bottom Line:   State the conclusion or status in sentence 1
@@ -15,25 +24,14 @@ U — Urgency:       Make the time-sensitivity explicit, not implied
 F — Follow-up:     State one clear next action or decision needed
 ```
 
-Every outage communication, architectural proposal, and project delay message should clear this test: **"If the reader stops after sentence 2, do they have everything they need to act?"**
-
----
-
-## Andy Grove's Communication Doctrine
-
-Grove's principle from *High Output Management*: **"Noise in the communication channel is not the receiver's problem. It is the sender's problem. Your job is to reduce the noise."**
-
-In equities technology, noise is:
-- Unexplained acronyms and internal system names in stakeholder messages
-- Passive voice that obscures ownership ("an issue was found" vs. "I found a bug in the feed handler")
-- Probability hedging that delays the key message ("it could potentially impact..." vs. "it is impacting")
-- Technical root cause explanation before the business impact statement
+Test every communication: "If the reader stops after sentence 2, do they have everything they need to act?"
 
 ---
 
 ## Communication Templates by Scenario
 
 ### Template 1 — Production Outage (Market Hours)
+
 **First message — within 3 minutes of detection:**
 ```
 P1 INCIDENT — [System Name] | [Time EST]
@@ -51,10 +49,10 @@ Bridge: [link]
 ```
 [Time EST] UPDATE
 
-Status: [current state change, if any]
-Diagnosis: [one sentence — what you believe the cause is]
+Status: [current state — any change]
+Diagnosis: [one sentence — best current hypothesis on cause]
 Action: [what is being executed right now]
-ETA to resolution: [specific time or "unknown — will update at [time]"]
+ETA to resolution: [specific time or "unknown — next update at [time]"]
 ```
 
 **Resolution message:**
@@ -63,16 +61,17 @@ RESOLVED — [System Name] | [Time EST]
 
 Duration: [X minutes]
 Root cause: [one sentence — no technical jargon in this message]
-Business impact: [confirmed impact — trades affected, data gaps, etc.]
+Business impact confirmed: [trades affected, data gaps, positions impacted]
 Immediate fix: [what was done to restore service]
-Full post-mortem: [date] — I'll circulate before EOD.
+Full post-mortem: [date] — will circulate before EOD
 ```
 
 ---
 
 ### Template 2 — Project Delay
-**Wrong (Cautious Default):**
-> "Due to a number of technical complexities we encountered during the integration phase, including some unexpected schema incompatibilities between the upstream pricing service and our downstream feed handler, which required us to revisit our data transformation layer, the delivery timeline may need to be adjusted..."
+
+**Wrong (cautious default):**
+> "Due to a number of technical complexities encountered during the integration phase, including some unexpected schema incompatibilities between the upstream pricing service and our downstream feed handler, which required revisiting our data transformation layer, the delivery timeline may need to be adjusted..."
 
 **Right (BLUF):**
 ```
@@ -83,21 +82,22 @@ Bottom line: We are 5 business days late. New delivery date: [specific date].
 Reason: Upstream pricing service schema changed without notice on [date].
 Retrofit required 3 days of unplanned rework.
 
-Impact: [what this delays for the business — one sentence]
-Mitigation: [what you're doing to compress remaining timeline]
-Decision needed from you: [none / or specific ask]
+Impact to business: [what this delays — one sentence]
+Mitigation: [what we're doing to compress remaining timeline]
+Decision needed from you: [none / or specific ask with deadline]
 ```
 
 ---
 
 ### Template 3 — Architectural Change Proposal
+
 ```
 Proposal: [Migration / Refactor / New System — one-line description]
 
 Recommendation: Proceed with [Option A].
 
 Business case:
-- Current state costs: [latency / incidents / manual ops overhead]
+- Current state costs: [latency / incidents / manual ops overhead — numbers]
 - Post-migration benefit: [specific metric improvement]
 - Risk if we don't act: [specific system fragility or compliance exposure]
 
@@ -111,7 +111,8 @@ Decision needed by: [date] to hit [business milestone].
 ---
 
 ### Template 4 — Stakeholder Escalation Response
-When an MD or trading desk head escalates directly:
+
+When an MD or trading desk head escalates directly to you:
 ```
 "Thank you for flagging this directly.
 
@@ -121,7 +122,8 @@ Here's when you'll hear from me next: [specific time].
 
 I have this."
 ```
-The last line matters. It is not arrogance — it is the confidence signal that stops an MD from cascading the escalation upward.
+
+The last line matters. "I have this" is not arrogance — it is the confidence signal that stops an MD from cascading the escalation upward before you've had a chance to resolve it.
 
 ---
 
@@ -140,17 +142,21 @@ The last line matters. It is not arrogance — it is the confidence signal that 
 ## The Caution Trap in Technical Communication
 
 Your Hogan profile will push you toward:
-- **Over-qualifying status updates:** "We believe we may have identified a potential root cause..."
+- **Over-qualifying status:** "We believe we may have identified a potential root cause..."
 - **Burying the business impact:** Three paragraphs of technical explanation before "trading desk position feed was delayed by 12 minutes"
 - **Soft ownership language:** "There appears to have been an issue" vs. "My team's service failed at 14:32"
 - **Delaying the first communication** until you have certainty — by which time the desk has already escalated
 
-**The Grove Override:** Communicate before you are certain. An acknowledged "investigating" message sent at minute 3 is worth more than a precise post-mortem sent at minute 45. Stakeholders can tolerate uncertainty. They cannot tolerate silence.
+**The Grove Override:** Communicate before you are certain. An acknowledged "investigating" message at minute 3 is worth more than a precise post-mortem at minute 45. Stakeholders tolerate uncertainty. They cannot tolerate silence.
 
 ---
 
 ## Weekly Experiments
 
-1. **This week:** Take your last project status email or Slack update. Rewrite it with BLUF — headline in sentence 1, no technical context until paragraph 2. Compare the two. Send the BLUF version next time.
-2. **This week:** Define your P1 communication SLA with your team: first message within 3 minutes, updates every 10 minutes, resolution message within 30 minutes. Put it in your team's on-call runbook.
-3. **This week:** Identify the last time you delivered a technical message to a senior stakeholder. How many sentences before you reached the business impact? Set a personal rule: business impact in sentence 1, always.
+1. **This week:** Take your last project status email or Slack update. Rewrite it with BLUF — headline in sentence 1, business impact before any technical context. Compare. Send the BLUF version next time.
+2. **This week:** Define your P1 communication SLA with your team: first message within 3 minutes, updates every 10 minutes, resolution message within 30 minutes. Put it in your on-call runbook.
+3. **This week:** Identify the last time you delivered a technical message to a senior stakeholder. Count the sentences before you reached the business impact. Set a personal rule: business impact in sentence 1, always.
+
+---
+
+*Next: [Pillar 10 — Executive Presence](./10-executive-presence-selling-the-team.md) | [Back to README](./README.md)*

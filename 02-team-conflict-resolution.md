@@ -1,89 +1,98 @@
 # Pillar 02 — Team Conflict Resolution
 ## De-escalating Technical Disputes in High-Stakes Trading Systems
 
-**Great Leader Anchor:** Nelson Mandela
-**Hogan Filter:** Your caution default is to avoid conflict by staying neutral for too long, hoping engineers self-resolve. In a 5-person team, unresolved friction metastasizes fast — one architecture dispute left open for two sprints can split the team into factions that slow every subsequent delivery.
+**Layer:** Team | **Great Leader Anchor:** Nelson Mandela | **Related:** [Pillar 06](./06-situational-leadership.md) · [Pillar 08](./08-will-skill-matrix.md)
+
+**Hogan Filter — Your Caution Trap:** You avoid conflict by staying neutral too long, hoping engineers self-resolve. In a 5-person team, unresolved friction metastasizes fast — one architecture dispute left open for two sprints can split the team into factions that slow every subsequent delivery. Your passivity reads as weakness to engineers who are waiting for a decision.
+
+**Anti-Caution Directive:** Conflict is resolved by inserting structure, not by waiting for it to cool. You are the decision-forcing mechanism. Name the shared constraint. Make the call. Close the loop in writing — today.
 
 ---
 
-## The Core Framework: ARIA (Acknowledge → Root Cause → Integrate → Align)
+## In 60 Seconds
+
+Every technical dispute has two layers: the technical argument and the underlying interest (on-call burden, ownership, career visibility, latency anxiety). Resolution means separating them. Your job is not to determine who is technically correct — it is to surface the shared constraint and make the decision that satisfies it best. Then close in writing.
+
+---
+
+## The Core Framework: ARIA
 
 ```
-ACKNOWLEDGE:   Surface and validate both technical positions without judgment
-ROOT CAUSE:    Separate the technical argument from the ego argument
-INTEGRATE:     Find the shared constraint (latency, risk, maintainability, timeline)
-ALIGN:         Make a decision. Own it. Close the loop in writing.
+ACKNOWLEDGE:  Surface and validate both positions without judgment
+ROOT CAUSE:   Separate the technical argument from the underlying interest
+INTEGRATE:    Find the shared constraint (latency, risk, timeline, ownership)
+ALIGN:        Make a decision. Own it. Close the loop in writing today.
 ```
 
 ---
 
-## Mandela's Conflict Operating Principle
+## Mandela's Operating Principle
 
-Mandela's negotiation framework was built on one foundational insight: **"Speak to a man's interests, not his positions."**
+**"Speak to a man's interests, not his positions."**
 
-In equities technology terms:
+In equities tech:
 - An engineer's **position** is: "We should use Kafka for this."
 - Their **interest** is: "I need this system to not page me at 3am."
 
-Conflict resolution in your team is never about who is technically right. It is about surfacing the underlying constraint each engineer is trying to protect — latency, ownership, on-call burden, career visibility — and finding the architectural decision that satisfies those constraints best.
+Conflict resolution is never about who is technically right. It is about surfacing what constraint each engineer is protecting and finding the decision that satisfies those constraints best.
 
 ---
 
-## The Three Conflict Archetypes in Equities Tech
+## The Four Conflict Archetypes in Equities Tech
 
 ### Archetype 1 — Architecture / Tech Stack Dispute
-**Scenario:** Two engineers disagree on whether to use gRPC or REST for a new internal pricing service.
+**Scenario:** Two engineers disagree on gRPC vs REST for a new internal pricing service. PR comments are getting personal.
 
-**Resolution Script:**
 ```
-"I'm going to stop this debate and reframe it. We are not deciding gRPC vs REST
-in the abstract. We are deciding: given our P99 latency budget of 2ms, our
-existing Protobuf schema investment, and our team's operational familiarity,
-which option reduces production risk for us specifically?
+"I'm stopping this debate and reframing it. We are not deciding gRPC vs REST
+in the abstract. We're deciding: given our P99 latency budget of 2ms, our
+existing Protobuf investment, and our team's operational familiarity — which
+option reduces production risk for us specifically?
 
-Here's what I need from both of you: one page each, 48 hours,
-addressing those three constraints only. I'll make the call Thursday."
+One page each, 48 hours, addressing those three constraints only.
+I'll make the call Thursday. This is not up for extended debate."
 ```
 
 ### Archetype 2 — Tech Debt vs. Feature Velocity
-**Scenario:** Senior engineer refuses to take new feature tickets because "the legacy order routing module is a time bomb."
+**Scenario:** Senior engineer refuses new feature tickets: "The legacy order routing module is a time bomb."
 
-**Resolution Script:**
 ```
 "Your concern about the routing module is logged and I agree it's a real risk.
-Here's the constraint I'm operating under: the trading desk needs this feature
-by [date] and that is not negotiable.
+Here's the constraint: the desk needs this feature by [date] — not negotiable.
 
-What I'm offering: we allocate 20% of this sprint to routing module hardening —
-you own that scope. In return, the feature tickets move forward in parallel.
-This is not a choice between safety and velocity. We are doing both at reduced
-scale. Can you work within that frame?"
+Here's the offer: 20% of this sprint goes to routing module hardening — you
+own that scope. Feature tickets move in parallel. This is not a choice between
+safety and velocity — we are doing both at reduced scale.
+
+Can you work within that frame? I need a yes or a specific counter-proposal
+by end of today."
 ```
 
-### Archetype 3 — Ownership / Responsibility Friction
-**Scenario:** Two engineers both claim ownership of a critical shared library, leading to conflicting PRs and broken builds.
+### Archetype 3 — Ownership / CODEOWNERS Friction
+**Scenario:** Two engineers both claim ownership of a shared library — conflicting PRs, broken CI builds.
 
-**Resolution Script:**
 ```
-"We have a CODEOWNERS gap. This is my failure to have not defined it clearly.
+"We have a CODEOWNERS gap and that's my failure for not defining it earlier.
+
 Effective today: [Engineer A] owns the API surface and versioning contract.
 [Engineer B] owns the performance internals and benchmarking suite.
+All PRs touching this library require both approvals.
 
-All PRs touching this library require both to approve.
-I'm updating the CODEOWNERS file today. This is not up for re-debate."
+I'm updating CODEOWNERS now. This is not a discussion — it's a decision.
+Bring specific concerns about the boundary to your next 1:1 if they exist."
 ```
 
----
+### Archetype 4 — On-Call Fairness Dispute
+**Scenario:** Engineers dispute rotation fairness; one claims the other consistently gets the quieter shifts.
 
-## The Caution Trap in Conflict
+```
+"Pull the PagerDuty data for the last 3 months: incident count and MTTR by
+engineer. We make this decision with data, not perception.
 
-Your Hogan profile will push you toward:
-- **Delayed intervention:** Waiting until the conflict is visible to the whole team before acting
-- **False balance:** Treating every technical dispute as 50/50 when one position is clearly stronger
-- **Consensus-seeking:** Trying to get everyone to agree rather than making the call yourself
-- **Avoiding the ego component:** Pretending the interpersonal dimension doesn't exist
-
-**The Mandela Override:** Conflict is not resolved by waiting for it to cool. It is resolved by inserting structure. Your job is to be the decision-forcing mechanism — not the mediator who helps everyone feel heard indefinitely.
+If it shows imbalance, I'll restructure the rotation this week.
+If it doesn't, we close this conversation and I expect full engagement on
+the current rotation from both of you."
+```
 
 ---
 
@@ -91,15 +100,31 @@ Your Hogan profile will push you toward:
 
 | Signal | Your Action | Timeline |
 |---|---|---|
-| Two engineers disagree in Slack/PR comments | Monitor 24h, then facilitate async resolution | 24–48h |
-| Disagreement persists into second sprint | Schedule 30-min tripartite — you + both engineers | Within 3 days |
-| Output is affected (blocked PRs, broken builds) | Immediate decision call — you own the outcome | Same day |
-| Personal friction visible to team | Private 1:1s with both parties, then joint session | Within 48h |
+| Disagreement in Slack/PR comments | Monitor 24h, then facilitate async | 24–48h |
+| Persists into second sprint | 30-min tripartite: you + both engineers | Within 3 days |
+| Output affected — blocked PRs, broken builds | Immediate decision call — you own the outcome | Same day |
+| Personal friction visible to the team | Private 1:1s with both, then joint session | Within 48h |
+
+---
+
+## The Caution Trap in Conflict
+
+Your Hogan profile will push you toward:
+- **Delayed intervention** — waiting until the conflict is visible to the whole team
+- **False balance** — treating every technical dispute as 50/50 when one position is clearly stronger
+- **Consensus-seeking** — trying to get everyone to agree instead of making the call
+- **Avoiding the ego component** — pretending the interpersonal dimension doesn't exist
+
+**The Mandela Override:** Insert structure. Name the shared constraint. Make the call. Write it down. Engineers don't need a manager who makes everyone feel heard indefinitely — they need a decision so they can ship.
 
 ---
 
 ## Weekly Experiments
 
-1. **This week:** Audit your current sprint for any unresolved technical disagreements sitting in PR comments or Slack threads. For each one older than 48 hours, intervene with a decision — not a question.
-2. **This week:** In your next team meeting, explicitly name the team's shared constraint (e.g., "Our north star is zero unplanned production outages this quarter"). A shared constraint defuses most architectural ego battles before they start.
-3. **This week:** Update or create a `CODEOWNERS` file for your top 3 most-contested shared modules. Eliminate ownership ambiguity as a structural intervention.
+1. **This week:** Audit your sprint for unresolved technical disagreements in PR comments or Slack threads older than 48 hours. For each one, intervene with a decision — not a question.
+2. **This week:** In your next team meeting, explicitly name the team's shared north star constraint (e.g., "Zero unplanned outages during market hours this quarter"). A named shared constraint defuses most architectural ego battles before they start.
+3. **This week:** Update or create a `CODEOWNERS` file for your top 3 most-contested shared modules. Eliminate ownership ambiguity as a structural intervention, not an interpersonal one.
+
+---
+
+*Next: [Pillar 03 — Year-End Reviews](./03-year-end-review-summaries.md) | [Back to README](./README.md)*
